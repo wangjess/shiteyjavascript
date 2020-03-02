@@ -66,7 +66,6 @@ $(document).ready( function() {
   beads = $(".beads");
   candy = $(".candy");
 
-
   // Set global positions
   maxPersonPosX = $('.game-window').width() - player.width();
   maxPersonPosY = $('.game-window').height() - player.height();
@@ -174,6 +173,7 @@ function createItemDivString(itemIndex, type, imageString){
 
 function updateThrownItemPosition(elementObj, xChange, yChange, iterationsLeft){
   console.log("Going to throw item...");
+  console.log(elementObj);
 
   // always throw it from the alligator float's center
   let startPosition = parseInt(paradeFloat2.css('left') + (paradeFloat2.width() / 2));
@@ -187,7 +187,7 @@ function updateThrownItemPosition(elementObj, xChange, yChange, iterationsLeft){
     let yThrow = parseInt(elementObj.css('top'))+yChange;
 
     if (iterationsLeft = 0) {
-      clearInterval(throwTimer); // finish the animation after 2 seconds
+      clearInterval(throwTimer); // finish the animation after iterations are up (i dont technically NEED this)
     }
 
     elementObj.css('left', xThrow);
