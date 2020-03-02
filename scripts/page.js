@@ -158,7 +158,27 @@ function startParade(){
   console.log("Starting parade...");
   paradeTimer = setInterval( function() {
       // (Depending on current position) update left value for each parade float
-  }, OBJECT_REFRESH_RATE);
+      let Float1 = parseInt(paradeFloat1.css('left'))+FLOAT_SPEED;
+      let Float2 = parseInt(paradeFloat2.css('left'))+FLOAT_SPEED;
+      if (Float1 > 500 && Float2 > 500) { // game window is 500 px
+        Float1 = -300; // restart positions
+        Float2 = -150; // restart positions
+      }
+      if (willCollide(paradeFloat1, player, FLOAT_SPEED, 0)) { // if it hits the lady
+        Float1 = parseInt(paradeFloat1.css('left'));
+        Float2 = parseInt(paradeFloat2.css('left'));
+      }
+      if (willCollide(paradeFloat2, player, FLOAT_SPEED, 0)) { // if it hits the alligator
+        Float1 = parseInt(paradeFloat1.css('left'));
+        Float2 = parseInt(paradeFloat2.css('left'));
+      }
+      // probably unnecessary
+      // if (willCollide(paradeFloat1, paradeFloat2, FLOAT_SPEED, 0)) { 
+      //   Float1 = parseInt(paradeFloat1.css('left'));
+      // }
+      paradeFloat1.css('left', Float1);
+      paradeFloat2.css('left', Float2);
+  }, OBJECT_REFRESH_RATE); // does this every 50 ms
 }
 
 // Handle player movement events
@@ -170,6 +190,13 @@ function movePerson(arrow) {
       if (newPos < 0) {
         newPos = 0;
       }
+      // code that makes it not go through parade
+      if (willCollide(player, paradeFloat1, -PERSON_SPEED, 0)) {
+        newPos = parseInt(player.css('left'));
+      }
+      if (willCollide(player, paradeFloat2, -PERSON_SPEED, 0)) {
+        newPos = parseInt(player.css('left'));
+      }
       player.css('left', newPos);
       break;
     }
@@ -177,6 +204,13 @@ function movePerson(arrow) {
       let newPos = parseInt(player.css('left'))+PERSON_SPEED;
       if (newPos > maxPersonPosX) {
         newPos = maxPersonPosX;
+      }
+      // code that makes it not go through parade
+      if (willCollide(player, paradeFloat1, PERSON_SPEED, 0)) {
+        newPos = parseInt(player.css('left'));
+      }
+      if (willCollide(player, paradeFloat2, PERSON_SPEED, 0)) {
+        newPos = parseInt(player.css('left'));
       }
       player.css('left', newPos);
       break;
@@ -186,6 +220,13 @@ function movePerson(arrow) {
       if (newPos < 0) {
         newPos = 0;
       }
+      // code that makes it not go through parade
+      if (willCollide(player, paradeFloat1, 0, -PERSON_SPEED)) {
+        newPos = parseInt(player.css('top'));
+      }
+      if (willCollide(player, paradeFloat2, 0, -PERSON_SPEED)) {
+        newPos = parseInt(player.css('top'));
+      }
       player.css('top', newPos);
       break;
     }
@@ -193,6 +234,13 @@ function movePerson(arrow) {
       let newPos = parseInt(player.css('top'))+PERSON_SPEED;
       if (newPos > maxPersonPosY) {
         newPos = maxPersonPosY;
+      }
+      // code that makes it not go through parade
+      if (willCollide(player, paradeFloat1, PERSON_SPEED, 0)) {
+        newPos = parseInt(player.css('top'));
+      }
+      if (willCollide(player, paradeFloat2, PERSON_SPEED, 0)) {
+        newPos = parseInt(player.css('top'));
       }
       player.css('top', newPos);
       break;
