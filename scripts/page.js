@@ -11,6 +11,10 @@ const PERSON_SPEED = 25;
 const OBJECT_REFRESH_RATE = 50;  //ms
 const SCORE_UNIT = 100;  // scoring is in 100-point units
 
+// Create Candy + Beads
+let candy = './img/candy.png';
+let beads = './img/beads.png';
+
 // Size vars
 let maxPersonPosX, maxPersonPosY;
 let maxItemPosX;
@@ -58,6 +62,10 @@ $(document).ready( function() {
   paradeRoute = $("#paradeRoute");
   paradeFloat1 = $("#paradeFloat1");
   paradeFloat2 = $("#paradeFloat2");
+  // Set styling for candy + beads 
+  beads = $(".beads");
+  candy = $(".candy");
+
 
   // Set global positions
   maxPersonPosX = $('.game-window').width() - player.width();
@@ -94,7 +102,7 @@ function keydownRouter(e) {
 }
 
 function checkCollisions() {
-  // TODO!
+  // TODO! When candy and user collide
 }
 
 function isColliding(o1, o2) {
@@ -133,7 +141,28 @@ function getRandomNumber(min, max){
 }
 
 function createThrowingItem(){
+  console.log('Creating item to throw...');
+  if (throwingItemIdx % 3 == 0) { // every 3rd item is candy
 
+    var itemToBeThrown = createItemDivString(throwingItemIdx, 'candy', 'candy.png');
+  }
+  else {
+ 
+    var itemToBeThrown = createItemDivString(throwingItemIdx, 'beads', 'beads.png');
+  }
+
+  gwhGame.append(itemToBeThrown);
+  var updateItemToBeThrown = $('#i-' + throwingItemIdx); // required to fade this distinct object properly
+  throwingItemIdx++;
+
+  // get the xChange + yChange
+  // var xChange = getRandomNumber(500, 0);
+  var xChange = 0;
+  // var yChange = getRandomNumber(500, 0);
+  var yChange = 50;
+  var numIterations = getRandomNumber(10, 0); // random number of iterations as described in spec
+
+  updateThrownItemPosition(updateItemToBeThrown, xChange, yChange, numIterations);
 }
 
 // throwingItemIdx - index of the item (a unique identifier)
@@ -144,7 +173,30 @@ function createItemDivString(itemIndex, type, imageString){
 }
 
 function updateThrownItemPosition(elementObj, xChange, yChange, iterationsLeft){
-  // TODO!
+  console.log("Going to throw item...");
+
+  // always throw it from the alligator float's center
+  let startPosition = parseInt(paradeFloat2.css('left') + (paradeFloat2.width() / 2));
+  let throwSpeed = getRandomNumber(20, 5);
+  elementObj.css('left', startPosition);
+
+  // set a timer so it moves the candy
+  let throwTimer = setInterval( function() {
+    // elementObj = startPosition; // restart position
+    let xFloat = parseInt(elementObj.css('left'))+xChange+throwSpeed;
+    let yFloat = parseInt(elementObj.css('top'))+yChange+throwSpeed;
+
+    if (iterationsLeft = 0) {
+      clearInterval(throwTimer); // finish the animation after 2 seconds
+    }
+
+    elementObj.css('left', xFloat);
+    elementObj.css('top', yFloat);
+    iterationsLeft--;
+}, OBJECT_REFRESH_RATE); // does this every 50 ms
+
+    // todo: sit for 5 seconds then fade
+    graduallyFadeAndRemoveElement(elementObj);
 }
 
 function graduallyFadeAndRemoveElement(elementObj){
@@ -172,10 +224,6 @@ function startParade(){
         Float1 = parseInt(paradeFloat1.css('left'));
         Float2 = parseInt(paradeFloat2.css('left'));
       }
-      // probably unnecessary
-      // if (willCollide(paradeFloat1, paradeFloat2, FLOAT_SPEED, 0)) { 
-      //   Float1 = parseInt(paradeFloat1.css('left'));
-      // }
       paradeFloat1.css('left', Float1);
       paradeFloat2.css('left', Float2);
   }, OBJECT_REFRESH_RATE); // does this every 50 ms
@@ -183,7 +231,6 @@ function startParade(){
 
 // Handle player movement events
 function movePerson(arrow) {
-  // TODO!
   switch (arrow) {
     case KEYS.left: { // left arrow
       let newPos = parseInt(player.css('left'))-PERSON_SPEED;
@@ -236,10 +283,10 @@ function movePerson(arrow) {
         newPos = maxPersonPosY;
       }
       // code that makes it not go through parade
-      if (willCollide(player, paradeFloat1, PERSON_SPEED, 0)) {
+      if (willCollide(player, paradeFloat1, 0, PERSON_SPEED)) {
         newPos = parseInt(player.css('top'));
       }
-      if (willCollide(player, paradeFloat2, PERSON_SPEED, 0)) {
+      if (willCollide(player, paradeFloat2, 0, PERSON_SPEED)) {
         newPos = parseInt(player.css('top'));
       }
       player.css('top', newPos);
