@@ -183,15 +183,15 @@ function updateThrownItemPosition(elementObj, xChange, yChange, iterationsLeft){
   // set a timer so it moves the candy
   let throwTimer = setInterval( function() {
     // elementObj = startPosition; // restart position
-    let xFloat = parseInt(elementObj.css('left'))+xChange;
-    let yFloat = parseInt(elementObj.css('top'))+yChange;
+    let xThrow = parseInt(elementObj.css('left'))+xChange;
+    let yThrow = parseInt(elementObj.css('top'))+yChange;
 
     if (iterationsLeft = 0) {
       clearInterval(throwTimer); // finish the animation after 2 seconds
     }
 
-    elementObj.css('left', xFloat);
-    elementObj.css('top', yFloat);
+    elementObj.css('left', xThrow);
+    elementObj.css('top', yThrow);
     iterationsLeft--;
 }, OBJECT_REFRESH_RATE); // does this every 50 ms
 
