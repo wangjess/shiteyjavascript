@@ -155,11 +155,10 @@ function createThrowingItem(){
   throwingItemIdx++;
 
   // get the xChange + yChange
-  // var xChange = getRandomNumber(500, 0);
-  var xChange = 0;
-  // var yChange = getRandomNumber(500, 0);
-  var yChange = 50;
-  var numIterations = getRandomNumber(10, 0); // random number of iterations as described in spec
+  let startPosition = parseInt(paradeFloat2.css('left') + (paradeFloat2.width() / 2));
+  var xChange = getRandomNumber(0 - startPosition, 454 - startPosition); // dont go beyond game-window bounds (500px)
+  var yChange = getRandomNumber(-210, 210);
+  var numIterations = getRandomNumber(15, 25); // random number of iterations as described in spec
 
   updateThrownItemPosition(updateItemToBeThrown, xChange, yChange, numIterations);
 }
@@ -173,30 +172,37 @@ function createItemDivString(itemIndex, type, imageString){
 
 function updateThrownItemPosition(elementObj, xChange, yChange, iterationsLeft){
   console.log("Going to throw item...");
-  console.log(elementObj);
 
   // always throw it from the alligator float's center
   let startPosition = parseInt(paradeFloat2.css('left') + (paradeFloat2.width() / 2));
-  let throwSpeed = getRandomNumber(20, 5);
+  let throwSpeed = getRandomNumber(10, 5);
+
+  // get the speed
+  let xAmountToMove = xChange / iterationsLeft;
+  let yAmountToMove = yChange / iterationsLeft;
+
   elementObj.css('left', startPosition);
+  elementObj.css('top', 250);
 
   // set a timer so it moves the candy
   let throwTimer = setInterval( function() {
-    // elementObj = startPosition; // restart position
-    let xThrow = parseInt(elementObj.css('left'))+xChange;
-    let yThrow = parseInt(elementObj.css('top'))+yChange;
-
-    if (iterationsLeft = 0) {
+    if (parseInt(iterationsLeft) == 0) {
       clearInterval(throwTimer); // finish the animation after iterations are up (i dont technically NEED this)
     }
+
+    let xThrow = parseInt(elementObj.css('left'))+xAmountToMove;
+    let yThrow = parseInt(elementObj.css('top'))+yAmountToMove;
 
     elementObj.css('left', xThrow);
     elementObj.css('top', yThrow);
     iterationsLeft--;
+
 }, OBJECT_REFRESH_RATE); // does this every 50 ms
 
-    // todo: sit for 5 seconds then fade
+  let fadeCandy = setTimeout( function() {
+    console.log("gradually fading...");
     graduallyFadeAndRemoveElement(elementObj);
+  }, 5000); // does this every 5 ms
 }
 
 function graduallyFadeAndRemoveElement(elementObj){
