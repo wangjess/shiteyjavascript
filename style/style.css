@@ -74,3 +74,10 @@
 .throwingItem {
   position: absolute;
 }
+/* yellow circle */
+.yellowaura img { 
+  width: 60px;
+  height: 60px;
+  background: yellow; 
+  border-radius: 70px;
+}

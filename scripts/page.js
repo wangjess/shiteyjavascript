@@ -100,8 +100,31 @@ function keydownRouter(e) {
   }
 }
 
+// functions that check when candy and user collide
 function checkCollisions() {
-  // TODO! When candy and user collide
+  // First, check for rocket-asteroid checkCollisions
+  $('.throwingItem').each( function() {
+    let curItem = $(this);  // define a local handle for this rocket
+    console.log("this object's ID #:", $(this).attr('id'));
+
+    if (isColliding($(this) , player)) {
+      // after 1 second it'll fade from collision
+      $(this) .fadeTo(1000, 0, function() {
+        // add yellow aura here
+        let yellowBackground = "<div id='" + $(this).attr('id') + "' class='yellowaura'></div>";
+        $(this).append(yellowBackground);
+
+        gwhGame.append($(this).append(yellowBackground));
+
+        // removes it
+        $(this).remove();
+        console.log($(this), " is gone!");
+
+        // update score board
+        gwhScore.html(parseInt($('#score-box').html()) + SCORE_UNIT);
+      })
+    }
+  });
 }
 
 function isColliding(o1, o2) {
@@ -200,7 +223,6 @@ function updateThrownItemPosition(elementObj, xChange, yChange, iterationsLeft){
 }, OBJECT_REFRESH_RATE); // does this every 50 ms
 
   let fadeCandy = setTimeout( function() {
-    console.log("gradually fading...");
     graduallyFadeAndRemoveElement(elementObj);
   }, 5000); // does this every 5 ms
 }
