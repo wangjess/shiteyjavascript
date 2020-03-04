@@ -100,28 +100,40 @@ function keydownRouter(e) {
   }
 }
 
+let numBeads = 0;
+let numCandy = 0;
+
 // functions that check when candy and user collide
 function checkCollisions() {
   // First, check for rocket-asteroid checkCollisions
   $('.throwingItem').each( function() {
     let curItem = $(this);  // define a local handle for this rocket
-    console.log("this object's ID #:", $(this).attr('id'));
+    let curItemID = $(this).attr('id');
+    let curItemClass = $(this).attr('class');
 
     if (isColliding($(this) , player)) {
+      // add yellow aura here
+      document.getElementById(curItemID).classList.add('yellowaura');
+
       // after 1 second it'll fade from collision
-      $(this) .fadeTo(1000, 0, function() {
-        // add yellow aura here
-        let yellowBackground = "<div id='" + $(this).attr('id') + "' class='yellowaura'></div>";
-        $(this).append(yellowBackground);
-
-        gwhGame.append($(this).append(yellowBackground));
-
-        // removes it
+      $(this).fadeTo(1000, 0, function() {
         $(this).remove();
-        console.log($(this), " is gone!");
 
-        // update score board
+        // update score
         gwhScore.html(parseInt($('#score-box').html()) + SCORE_UNIT);
+
+        console.log($(this).attr('class'));
+        // update # of beads collected or candy collected
+        if ($(this).attr('class') == 'throwingItem beads yellowaura') {
+          numBeads++;
+          console.log(numBeads);
+          document.getElementById('#beadsCounter').textContent = parseInt(numBeads);
+        }
+        else {
+          numCandy++;
+          console.log(numCandy);
+          document.getElementById('#candyCounter').textContent = parseInt(numCandy);
+        }
       })
     }
   });
