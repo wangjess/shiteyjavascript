@@ -117,25 +117,24 @@ function checkCollisions() {
 
       // after 1 second it'll fade from collision
       $(this).fadeTo(1000, 0, function() {
+
         $(this).remove();
 
         // update score
         gwhScore.html(parseInt($('#score-box').html()) + SCORE_UNIT);
 
-        console.log($(this).attr('class'));
-        
         // update # of beads collected or candy collected
         if ($(this).attr('class') == 'throwingItem beads yellowaura') {
           numBeads++;
           console.log(numBeads);
-          console.log(document.getElementById('#beadsCounter').textContent);
-          document.getElementById('#beadsCounter').textContent = toString(numBeads);
+          console.log(document.getElementById('#beadsCounter').innerHTML);
+          document.getElementById('#beadsCounter').innerHTML = toString(numBeads);
         }
         else {
           numCandy++;
           console.log(numCandy);
-          console.log(document.getElementById('#candyCounter').textContent);
-          document.getElementById('#candyCounter').textContent = toString(numCandy);
+          console.log(document.getElementById('#candyCounter').innerHTML);
+          document.getElementById('#candyCounter').innerHTML = toString(numCandy);
         }
       })
     }
