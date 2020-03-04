@@ -127,14 +127,12 @@ function checkCollisions() {
         if ($(this).attr('class') == 'throwingItem beads yellowaura') {
           numBeads++;
           console.log(numBeads);
-          console.log(document.getElementById('#beadsCounter').innerHTML);
-          document.getElementById('#beadsCounter').innerHTML = toString(numBeads);
+          document.getElementById('beadsCounter').innerHTML = parseInt(numBeads);
         }
         else {
           numCandy++;
           console.log(numCandy);
-          console.log(document.getElementById('#candyCounter').innerHTML);
-          document.getElementById('#candyCounter').innerHTML = toString(numCandy);
+          document.getElementById('candyCounter').innerHTML = parseInt(numCandy);
         }
       })
     }
