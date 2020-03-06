@@ -391,7 +391,7 @@ function saveAndClose() {
       document.getElementById('settingsPanel').style.display = "none";
     }
 
-    // TODO! Only updates the 1st time then it doesn't work
+    clearInterval(createThrowingItemIntervalHandle);
     currentThrowingFrequency = inputtedValue;
     createThrowingItemIntervalHandle = setInterval(createThrowingItem, currentThrowingFrequency);
   }
