@@ -393,8 +393,8 @@ function saveAndClose() {
     }
 
     // TODO! Update frequency + make sure it works in-game
-    // currentThrowingFrequency = inputtedValue;
-    createThrowingItemIntervalHandle = setInterval(createThrowingItem, inputtedValue);
+    currentThrowingFrequency = inputtedValue;
+    createThrowingItemIntervalHandle = setInterval(createThrowingItem, currentThrowingFrequency);
   }
 }
 
@@ -402,6 +402,9 @@ function discardAndClose() {
   console.log("Discard and close...");
 
   let settingsPanel = document.getElementById('settingsPanel');
+
+  // Set value to existing throwing Frequency
+  document.getElementById('frequency').value = currentThrowingFrequency;
 
   if (settingsPanel.style.display === "block") {
     document.getElementById('settingsButton').style.display = "block";
