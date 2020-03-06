@@ -48,9 +48,40 @@ let currentThrowingFrequency = 2000;
 
 ////  Functional Code  ////
 
+// Splash Screen Code
+function splash(time) {
+  return new Promise(resolve => {
+    setTimeout(() => { // Stuff to do after timeout
+      $("#splash").hide();
+      $('#actualGame').show();
+      // startParade();
+      resolve();
+    }, time);
+  });
+}
+
 // Main
 $(document).ready( function() {
+  // TODO! Won't delay actual game function
+  setTimeout(function() { startParade(); }, 10000);
+  setTimeout(function() { createItemDivString(); }, 10000);
+  setTimeout(function() { updateThrownItemPosition(); }, 10000);
+  
   console.log("Ready!");
+
+
+  $('#actualGame').hide(); // hide game automatically 
+
+  // Delay this function start
+  // console.log("going to set a timeout for startParade()");
+
+  // Wait for splash to resolve after 3 seconds, then start everything
+  splash(3000).then(() => {
+      $('#paradeRoute').show();
+      $('#player').show();
+      $('#paradeFloats').show();
+      startParade();
+  });
 
   maxItemPosX = $('.game-window').width() - 50;
   maxItemPosY = $('.game-window').height() - 40;
@@ -334,21 +365,3 @@ function movePerson(arrow) {
     }
   }
 }
-
-function splash(time) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      $("#splash").hide();
-      $('#actualGame').show();
-      resolve();
-    }, time);
-  });
-}
-
-$(document).ready(function() {
-  $('#actualGame').hide();
-  // Wait for splash to resolve after 3 seconds, then start everything
-  splash(3000).then(() => {
-      startParade();
-  });
-});
