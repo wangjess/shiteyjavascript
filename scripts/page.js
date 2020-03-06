@@ -353,3 +353,57 @@ function movePerson(arrow) {
     }
   }
 }
+
+/* My code here */
+
+function openSettingsPanel() {
+  console.log("Opening settings panel...");
+
+  let settingsButton = document.getElementById('settingsButton');
+  let settingsPanel = document.getElementById('settingsPanel');
+
+  if (settingsPanel.style.display === "none") {
+    settingsButton.style.display = "none";
+    console.log("opening panel");
+    // settingsPanel.show();
+    document.getElementById('settingsPanel').style.display = "block";
+  }
+}
+
+function saveAndClose() {
+  console.log("Save and close...");
+
+  // Check for bad input
+  // Good input: Is an integer + Is >= 100 
+  let inputtedValue = document.getElementById('frequency').value;
+  if (!Number.isInteger(parseInt(inputtedValue)))  {
+    console.log("NOT AN INTEGER!");
+    alert("Frequency must be a number greater than or equal to 100");
+  }
+  else if (parseInt(inputtedValue) < 100) {
+    console.log("NOT >= 100");
+    alert("Frequency must be a number greater than or equal to 100");
+  }
+  else { // Received valid input
+    let settingsPanel = document.getElementById('settingsPanel');
+
+    if (settingsPanel.style.display === "block") {
+      document.getElementById('settingsButton').style.display = "block";
+      document.getElementById('settingsPanel').style.display = "none";
+    }
+
+    // TODO! Update frequency + make sure it works in-game
+
+  }
+}
+
+function discardAndClose() {
+  console.log("Discard and close...");
+
+  let settingsPanel = document.getElementById('settingsPanel');
+
+  if (settingsPanel.style.display === "block") {
+    document.getElementById('settingsButton').style.display = "block";
+    document.getElementById('settingsPanel').style.display = "none";
+  }
+}

@@ -110,3 +110,8 @@
   font-style: italic;
   font-size: 30px;
 }
+#settingsPanel {
+  margin-top: 15px;
+  /* padding: 10px; */
+  border: 1px solid black;
+}
