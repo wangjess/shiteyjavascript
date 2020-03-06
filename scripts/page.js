@@ -196,11 +196,9 @@ function getRandomNumber(min, max){
 function createThrowingItem(){
   console.log('Creating item to throw...');
   if (throwingItemIdx % 3 == 0) { // every 3rd item is candy
-
     var itemToBeThrown = createItemDivString(throwingItemIdx, 'candy', 'candy.png');
   }
   else {
- 
     var itemToBeThrown = createItemDivString(throwingItemIdx, 'beads', 'beads.png');
   }
 
