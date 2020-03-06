@@ -393,7 +393,8 @@ function saveAndClose() {
     }
 
     // TODO! Update frequency + make sure it works in-game
-
+    // currentThrowingFrequency = inputtedValue;
+    createThrowingItemIntervalHandle = setInterval(createThrowingItem, inputtedValue);
   }
 }
 
