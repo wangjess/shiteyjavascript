@@ -83,3 +83,31 @@
   padding: 3px; /* TODO! */
   position: absolute;
 }
+
+/* Splash Screen stuff below */
+#outer-container {
+  height: 600px;
+  width: 800px;
+  background: #eee;
+  border: 5px solid #ccc;
+  overflow: hidden; /* Hide everything outside of #outer-container */ 
+}
+
+#splash {
+  align-items: center;
+  background-color: #fff;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  /* vertical-align: middle; */
+  z-index: 9999;
+}
+#splash-content {
+  font-style: italic;
+  font-size: 30px;
+}

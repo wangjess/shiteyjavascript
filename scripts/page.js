@@ -334,3 +334,21 @@ function movePerson(arrow) {
     }
   }
 }
+
+function splash(time) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      $("#splash").hide();
+      $('#actualGame').show();
+      resolve();
+    }, time);
+  });
+}
+
+$(document).ready(function() {
+  $('#actualGame').hide();
+  // Wait for splash to resolve after 3 seconds, then start everything
+  splash(3000).then(() => {
+      startParade();
+  });
+});
