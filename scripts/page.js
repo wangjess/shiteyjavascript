@@ -229,7 +229,6 @@ function updateThrownItemPosition(elementObj, xChange, yChange, iterationsLeft){
 
   // always throw it from the alligator float's center
   let startPosition = parseInt(paradeFloat2.css('left') + (paradeFloat2.width() / 2));
-  let throwSpeed = getRandomNumber(10, 5);
 
   // get the speed
   let xAmountToMove = xChange / iterationsLeft;
@@ -392,7 +391,7 @@ function saveAndClose() {
       document.getElementById('settingsPanel').style.display = "none";
     }
 
-    // TODO! Update frequency + make sure it works in-game
+    // TODO! Only updates the 1st time then it doesn't work
     currentThrowingFrequency = inputtedValue;
     createThrowingItemIntervalHandle = setInterval(createThrowingItem, currentThrowingFrequency);
   }
