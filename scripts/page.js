@@ -51,10 +51,9 @@ let currentThrowingFrequency = 2000;
 // Splash Screen Code
 function splash(time) {
   return new Promise(resolve => {
-    setTimeout(() => { // Stuff to do after timeout
+    setTimeout(() => { 
       $("#splash").hide();
-      $('#actualGame').show();
-      // startParade();
+      // $('#actualGame').show();
       resolve();
     }, time);
   });
@@ -62,53 +61,42 @@ function splash(time) {
 
 // Main
 $(document).ready( function() {
-  // TODO! Won't delay actual game function
-  setTimeout(function() { startParade(); }, 10000);
-  setTimeout(function() { createItemDivString(); }, 10000);
-  setTimeout(function() { updateThrownItemPosition(); }, 10000);
-  
   console.log("Ready!");
-
-
-  $('#actualGame').hide(); // hide game automatically 
-
-  // Delay this function start
-  // console.log("going to set a timeout for startParade()");
 
   // Wait for splash to resolve after 3 seconds, then start everything
   splash(3000).then(() => {
-      $('#paradeRoute').show();
-      $('#player').show();
-      $('#paradeFloats').show();
       startParade();
+
+      // Move all the code in here because it looks important
+      maxItemPosX = $('.game-window').width() - 50;
+      maxItemPosY = $('.game-window').height() - 40;
+      // Set global handles (now that the page is loaded)
+      gwhGame = $('#actualGame');
+      gwhStatus = $('.status-window');
+      gwhScore = $('#score-box');
+      player = $('#player');  // set the global player handle
+      paradeRoute = $("#paradeRoute");
+      paradeFloat1 = $("#paradeFloat1");
+      paradeFloat2 = $("#paradeFloat2");
+      // Set styling for candy + beads 
+      beads = $(".beads");
+      candy = $(".candy");
+    
+      // Set global positions
+      maxPersonPosX = $('.game-window').width() - player.width();
+      maxPersonPosY = $('.game-window').height() - player.height();
+    
+      /* Make person stop moving */
+      $(window).keydown(keydownRouter);
+      
+      // Periodically check for collisions
+      setInterval( function() {
+        checkCollisions();
+      }, 100);
   });
 
-  maxItemPosX = $('.game-window').width() - 50;
-  maxItemPosY = $('.game-window').height() - 40;
-  // Set global handles (now that the page is loaded)
-  gwhGame = $('#actualGame');
-  gwhStatus = $('.status-window');
-  gwhScore = $('#score-box');
-  player = $('#player');  // set the global player handle
-  paradeRoute = $("#paradeRoute");
-  paradeFloat1 = $("#paradeFloat1");
-  paradeFloat2 = $("#paradeFloat2");
-  // Set styling for candy + beads 
-  beads = $(".beads");
-  candy = $(".candy");
-
-  // Set global positions
-  maxPersonPosX = $('.game-window').width() - player.width();
-  maxPersonPosY = $('.game-window').height() - player.height();
-
-  $(window).keydown(keydownRouter);
-  
-  // Periodically check for collisions
-  setInterval( function() {
-    checkCollisions();
-  }, 100);
-
-  startParade();
+  /* Do not need because I'm calling it after splash screen */
+  // startParade(); 
 
   createThrowingItemIntervalHandle = setInterval(createThrowingItem, currentThrowingFrequency);
 });

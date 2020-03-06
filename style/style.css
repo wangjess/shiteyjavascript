@@ -92,7 +92,6 @@
   border: 5px solid #ccc;
   overflow: hidden; /* Hide everything outside of #outer-container */ 
 }
-
 #splash {
   align-items: center;
   background-color: #fff;
@@ -105,7 +104,7 @@
   text-align: center;
   top: 0;
   /* vertical-align: middle; */
-  z-index: 9999;
+  z-index: 6969;
 }
 #splash-content {
   font-style: italic;
