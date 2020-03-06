@@ -84,14 +84,14 @@
   position: absolute;
 }
 
-/* Splash Screen stuff below */
+/* Splash Screen stuff below
 #outer-container {
   height: 600px;
   width: 800px;
   background: #eee;
   border: 5px solid #ccc;
-  overflow: hidden; /* Hide everything outside of #outer-container */ 
-}
+  overflow: hidden; 
+} */
 #splash {
   align-items: center;
   background-color: #fff;
