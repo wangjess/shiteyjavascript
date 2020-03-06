@@ -5,6 +5,21 @@
 <!-- JS -->
 <script src='scripts/jquery.min.js'></script>
 <script src='scripts/page.js'></script>
+<script>
+function openSettingsPanel() {
+  console.log("Opening settings panel...");
+
+  let settingsButton = document.getElementById('settingsButton');
+  let settingsPanel = document.getElementById('settingsPanel');
+
+  if (settingsPanel.style.display === "none") {
+    settingsButton.style.display = "none";
+    console.log("opening panel");
+    // settingsPanel.show();
+    document.getElementById('settingsPanel').style.display = "block";
+  }
+}
+</script>
 
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -48,6 +63,12 @@
       <div>
         <b># of candy pieces collected:</b>
         <span id="candyCounter">0</span>
+      </div>
+      <div id='settingsButton'>
+        <button type='button' onclick="openSettingsPanel()">Open settings panel</button>
+      </div>
+      <div id="settingsPanel" style="display:none">
+        This is where my settingsPanel will go.
       </div>
     </div>
   </div>
