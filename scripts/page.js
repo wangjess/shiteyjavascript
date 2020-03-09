@@ -72,9 +72,9 @@ $(document).ready( function() {
   console.log("Ready!");
 
   // Wait for splash to resolve after 3 seconds, then start everything
-  gameStart.play(); // todo!
   splash(3000).then(() => {
       startParade();
+      gameStart.play(); // todo!
 
       // Move all the code in here because it looks important
       maxItemPosX = $('.game-window').width() - 50;
