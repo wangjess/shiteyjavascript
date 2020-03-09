@@ -22,7 +22,7 @@ let maxItemPosY;
 
 // Audio files
 var playAudio; 
-var gameStart = new Audio('audio/cheering.wav');
+// var gameStart = new Audio('audio/cheering.wav');
 var collect = new Audio('audio/blip.wav');
 
 // Global Window Handles (gwh__)
@@ -66,8 +66,12 @@ function splash(time) {
 
 // Main
 $(document).ready( function() {
+  playAudio = false; // default
+
   console.log("Ready!");
-  gameStart.play(); // todo!
+  // if (playAudio) {
+  //   gameStart.play(); // todo!
+  // }
 
   // Wait for splash to resolve after 3 seconds, then start everything
   splash(3000).then(() => {
@@ -137,7 +141,9 @@ function checkCollisions() {
     let curItemClass = $(this).attr('class');
 
     if (isColliding($(this) , player)) {
-      collect.play(); // plays audio
+      if (playAudio) {
+        collect.play(); // plays audio
+      }
 
       // add yellow aura here
       document.getElementById(curItemID).classList.add('yellowaura');
@@ -415,4 +421,18 @@ function discardAndClose() {
     document.getElementById('settingsButton').style.display = "block";
     document.getElementById('settingsPanel').style.display = "none";
   }
+}
+
+// Added for bonus points
+function toggleAudio() {
+  console.log("Toggle sfx audio...");
+
+  if (playAudio == false) {
+    playAudio = true;
+    alert("Audio on!");
+    return;
+  }
+  
+  alert("Audio off!");
+  playAudio = false;
 }
