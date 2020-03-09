@@ -14,6 +14,7 @@ const SCORE_UNIT = 100;  // scoring is in 100-point units
 // Create Candy + Beads
 let candy = './img/candy.png';
 let beads = './img/beads.png';
+let axe = './img/axe.png';
 
 // Size vars
 let maxPersonPosX, maxPersonPosY;
@@ -22,7 +23,7 @@ let maxItemPosY;
 
 // Audio files
 var playAudio; 
-// var gameStart = new Audio('audio/cheering.wav');
+var gameStart = new Audio('audio/cheering.wav');
 var collect = new Audio('audio/blip.wav');
 
 // Global Window Handles (gwh__)
@@ -69,11 +70,9 @@ $(document).ready( function() {
   playAudio = false; // default
 
   console.log("Ready!");
-  // if (playAudio) {
-  //   gameStart.play(); // todo!
-  // }
 
   // Wait for splash to resolve after 3 seconds, then start everything
+  gameStart.play(); // todo!
   splash(3000).then(() => {
       startParade();
 
